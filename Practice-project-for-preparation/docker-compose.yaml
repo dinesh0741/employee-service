@@ -1,0 +1,34 @@
+version: "apps/v1"
+services:
+  app:
+    image: employeeimg
+    container_name: employee-container
+    ports:
+      - "8081:9091"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/employeedbdetails
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: ROOT
+    networks:
+      - employee-network
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16
+    container_name: postgres-container
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: employeedbdetails
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ROOT
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - employee-network
+
+volumes:
+  postgres-data:
+networks:
+  employee-network:
