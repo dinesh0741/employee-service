@@ -58,6 +58,7 @@ public class EmployeeController {
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteByEmail(@RequestParam("email") String email){
         employeeService.deleteByEmailId(email);
+//        System.out.println("Deleting employee");
         return new ResponseEntity<>("Employee Deleted Successfully having email : " + email, HttpStatus.OK);
     }
 }
